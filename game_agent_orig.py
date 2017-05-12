@@ -34,17 +34,10 @@ def custom_score(game, player):
     float
         The heuristic value of the current game state to the specified player.
     """
-    
-    if game.is_loser(player):
-        return float('-inf')
-    
-    if game.is_winner(player):
-        return float('inf')
-    
-    own_moves = len(game.get_legal_moves(player))
-    opponent_moves = len(game.get_legal_moves(game.get_opponent(player)))
-    return float(own_moves - opponent_moves)
-                          
+    # TODO: finish this function!
+    raise NotImplementedError
+
+
 def custom_score_2(game, player):
     """Calculate the heuristic value of a game state from the point of view
     of the given player.
@@ -216,55 +209,11 @@ class MinimaxPlayer(IsolationPlayer):
                 each helper function or else your agent will timeout during
                 testing.
         """
-       
-        def maxVal(game, depth):
-            if self.time_left() < self.TIMER_THRESHOLD:
-                raise SearchTimeout()
-                
-            if depth == 0:
-                return self.score(game, self)
-            #print('maxval player=', game.active_player, ' depth=', depth)
-            
-            best_score = float('-inf')
-            legal_moves = game.get_legal_moves()
-            for move in legal_moves:
-                best_score = max(best_score, minVal(game.forecast_move(move), depth -1))
-            return best_score
-        
-        def minVal(game, depth):
-            if self.time_left() < self.TIMER_THRESHOLD:
-                raise SearchTimeout()
-                
-            if depth == 0:
-                return self.score(game, self)
-            
-            #print('minval player=', game.active_player, ' depth=', depth)
-            
-            
-            
-            best_score = float('inf')
-            legal_moves = game.get_legal_moves()
-            for move in legal_moves:
-                best_score = min(best_score, maxVal(game.forecast_move(move), depth -1))  
-            return best_score
-        
-        
         if self.time_left() < self.TIMER_THRESHOLD:
             raise SearchTimeout()
-                 
-        best_move = (-1, -1)
-        best_score = float('-inf')
-        legal_moves = game.get_legal_moves()
-        player = game.active_player
-        opponent = game.get_opponent(player)
-        print('player=', player, ' opponent=', opponent)
-        for move in legal_moves:
-            current_score = minVal(game.forecast_move(move), depth - 1)
-            if current_score > best_score:
-                best_score = current_score
-                best_move = move
-        return best_move 
-       
+
+        # TODO: finish this function!
+        raise NotImplementedError
 
 
 class AlphaBetaPlayer(IsolationPlayer):
@@ -305,21 +254,9 @@ class AlphaBetaPlayer(IsolationPlayer):
         """
         self.time_left = time_left
 
-        # Initialize the best move so that this function returns something
-        # in case the search fails due to timeout
-        best_move = (-1, -1)
+        # TODO: finish this function!
+        raise NotImplementedError
 
-        try:
-            # The try/except block will automatically catch the exception
-            # raised when the timer is about to expire.
-            return self.alphabeta(game, self.search_depth)
-
-        except SearchTimeout:
-            pass  # Handle any actions required after timeout as needed
-
-        # Return the best move from the last completed search iteration
-        return best_move
-    
     def alphabeta(self, game, depth, alpha=float("-inf"), beta=float("inf")):
         """Implement depth-limited minimax search with alpha-beta pruning as
         described in the lectures.
@@ -365,67 +302,8 @@ class AlphaBetaPlayer(IsolationPlayer):
                 each helper function or else your agent will timeout during
                 testing.
         """
-        
-        
-        def minVal(game, depth, alpha=float("-inf"), beta=float("inf")):
-            if self.time_left() < self.TIMER_THRESHOLD:
-                raise SearchTimeout()
-            
-            best_score = float('inf')
-            if depth == 0:
-                return self.score(game, self)
-            
-            
-            legal_moves = game.get_legal_moves()
-            
-            for move in legal_moves:
-                best_score = min(best_score, maxVal(game.forecast_move(move), depth - 1, alpha, beta))
-                
-                if best_score <= alpha:
-                    return best_score
-                
-                beta = min(best_score, beta)
-            return best_score
-               
-                 
-        def maxVal(game, depth, alpha=float("-inf"), beta=float("inf")):
-            if self.time_left() < self.TIMER_THRESHOLD:
-                raise SearchTimeout()
-            
-            best_score = float('-inf')
-            
-            if depth == 0:
-                return self.score(game,self)
-            
-            
-            legal_moves= game.get_legal_moves()
-            
-            for move in legal_moves:
-                best_score = max(best_score, minVal(game.forecast_move(move), depth - 1, alpha, beta))
-            
-                if best_score >= beta:
-                    return best_score
-                
-                alpha = max(best_score, alpha)
-                    
-            return best_score
-        
-        
         if self.time_left() < self.TIMER_THRESHOLD:
             raise SearchTimeout()
-            
-        best_move = (-1, -1)
-        best_score = float('-inf')
-        legal_moves = game.get_legal_moves()
-        alpha = float('-inf')
-        beta =  float('inf')
-        
-        for move in legal_moves:
-            current_score = minVal(game.forecast_move(move), depth - 1, best_score, beta)
-            if current_score > best_score:
-                best_score = current_score
-                best_move = move
-                                       
-        return best_move
 
-       
+        # TODO: finish this function!
+        raise NotImplementedError
